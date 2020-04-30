@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<link rel="stylesheet" type="text/css" href="magnifier.css">
+
+
+<div width="100px" height="310px">
+    <img id="cur" style="position: absolute" width="10px" height="10px" src="curs.png">
+    <a class="magnifier-thumb-wrapper" style="position: absolute" >
+        <img id="thumb" width="300px" height="300px" src="Graph.png">
+    </a>
+	
+</div>
+
+<script type="text/javascript" src="Event.js"></script>
+<script type="text/javascript" src="MagnifierV4-Cursor.js"></script>
+<script type="text/javascript">
+var evt = new Event(),
+    m = new Magnifier(evt);
+	
+	m.attach({
+    thumb: '#thumb',
+    large: 'Graph.png',
+    mode: 'inside',
+    zoom: 3 ,
+});
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<style>
+			.donut-ring {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.ring {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
+
+.ring.red {
+    background-color: red;
+    border-radius: 60%;
+	top: 0;
+    left: 0;
+	width: 100%;
+    height: 100%;
+	transform-origin: top right;
+}
+
+.cutout {
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.rround{
+border-radius: 50%;
+}
+		</style>
+		
+		
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+	<div id="mainDiv" class="donut-ring">
+		<div id="red" class="ring red"></div>
+		<div id="cutoutt" class="cutout"> <canvas class="rround" width="140%" height="140%" id="myCanvas" > </canvas> </div>
+    </div>
+	
+	</body>
+	
+	<script>
+	
+	  var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+	  
+	  base_image = new Image();
+	  base_image.src = 'stg.png';
+      context.drawImage(base_image, -38, -40,220, 220);
+	  //context.drawImage(base_image, 0, 0);
+	  //console.log(base_image);
+	  
+	  
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var radius = 70;
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'white';
+      context.fill();
+	  
+	  
+      
+	
+	var cir = document.getElementById("red");
+	var cutOut = document.getElementById("cutoutt");
+	
+	console.log(cutOut);
+	var isOnDiv = false;
+	
+	cir.addEventListener("touchstart", function(  ) {
+	console.log("IN"); 
+	isOnDiv=true;
+	
+	
+	
+	
+	});
+	
+    cir.addEventListener("touchend", function(  ) {
+	console.log("OUT"); 
+	isOnDiv=false;
+	
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	context.fillStyle = 'white';
+	context.fill();
+
+	});
+	
+	var X = -10;
+	var Y = -10;
+	
+	var X2 = -10;
+	var Y2 = -10;
+	var NewX2 = -10;
+	var NewY2 = -10;
+	var slopBetweenTwoPoints = -10;
+	var slopMiddleToSecondTouch = -10;
+	var slope = -10;
+	
+	var oldRange = 100;
+	var newRange = 200;
+	
+	var NewX1 = (((X-60)*2)+10);
+	var NewY1 = (((Y-60)*2)+10);
+	
+	cir.addEventListener("touchmove", function( e ) {
+			console.log("MOVE"); 
+			isOnDiv=true;
+			X = e.touches[0].clientX;
+			Y = e.touches[0].clientY;
+			
+			X2 = -10;
+			Y2 = -10;
+			NewX2 = -10;
+			NewY2 = -10;
+			slopBetweenTwoPoints = -10;
+			slopMiddleToSecondTouch = -10;
+			slope = -10;
+			
+			oldRange = 100;
+			newRange = 200;
+			
+			NewX1 = (((X-60)*2)+10);
+			NewY1 = (((Y-60)*2)+10);
+			
+			
+			//console.log("lENGTH " + e.touches.length);
+			if(e.touches.length == 2)
+			{
+				console.log("MULTI TOUCH HAPPENED");
+				X2 = e.touches[1].clientX;
+				Y2 = e.touches[1].clientY;
+				
+				NewX2 = (((X2-60)*2)+10);
+				NewY2 = (((Y2-60)*2)+10);	
+				
+				slopBetweenTwoPoints = ((NewY2 - NewY1)/(NewX2 - NewX1));
+				slopMiddleToSecondTouch = ((NewY2 - (canvas.height/2))/(NewX2 - (canvas.width/2)));
+				
+			}
+			
+			slope = ((NewY1 - (canvas.height/2))/(NewX1 - (canvas.width/2)));
+			
+			console.log("X1: " + X);
+			console.log("Y1: " + Y);
+			
+			console.log("X2: " + X2);
+			console.log("Y2: " + Y2);
+		
+		
+		
+			context.beginPath();
+			context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'white';
+			context.fill();
+
+			base_image = new Image();
+			base_image.src = 'stg.png';
+			context.drawImage(base_image, -38, -40,220, 220);
+			
+
+			
+			//context.beginPath(); 
+			//context.moveTo(canvas.width/2,canvas.height/2);
+			//context.lineTo(NewX1,NewY1);
+			//context.stroke();
+			
+			context.beginPath(); 
+			context.moveTo(NewX1,0);
+			context.lineTo(NewX1,NewY1);
+			context.stroke();
+			
+			
+			
+			
+			
+			
+			
+			context.font = "12px Arial";
+			context.fillStyle = "red";
+			context.textAlign = "center";
+			context.fillText("", 70, 30);
+			
+			
+			console.log("Slope1: " + slope);
+			console.log("Slope2: " + slopMiddleToSecondTouch);
+			console.log("Slope3: " + slopBetweenTwoPoints);
+			
+			<!-- if( -0.42 < slope  && slope < -0.31 ) -->
+			<!-- { -->
+				
+				<!-- if((slopBetweenTwoPoints != -10)&&(slopMiddleToSecondTouch != -10)) -->
+				<!-- { -->
+					<!-- if(-20.1 < slopMiddleToSecondTouch  && slopMiddleToSecondTouch < -4.1) -->
+					<!-- { -->
+						<!-- context.fillStyle = "red"; -->
+						<!-- context.fillText("25", 70, 30); -->
+					<!-- } -->
+					<!-- else if(1.08 < slopMiddleToSecondTouch  && slopMiddleToSecondTouch < 1.7) -->
+					<!-- { -->
+						<!-- context.fillStyle = "red"; -->
+						<!-- context.fillText("17", 70, 30); -->
+					<!-- } -->
+				<!-- } -->
+				<!-- else -->
+				<!-- { -->
+					<!-- context.fillStyle = "red"; -->
+					<!-- context.fillText("123", 70, 30); -->
+				<!-- } -->
+			<!-- } -->
+			<!-- else if(-0.18 < slope  && slope < 0) -->
+			<!-- { -->
+				
+				<!-- if((slopBetweenTwoPoints != -10)&&(slopMiddleToSecondTouch != -10)) -->
+				<!-- { -->
+					<!-- if(-20.1 < slopMiddleToSecondTouch  && slopMiddleToSecondTouch < -4.1) -->
+					<!-- { -->
+						<!-- context.fillStyle = "red"; -->
+						<!-- context.fillText("20", 70, 30); -->
+					<!-- } -->
+					<!-- else if(1.08 < slopMiddleToSecondTouch  && slopMiddleToSecondTouch < 1.7) -->
+					<!-- { -->
+						<!-- context.fillStyle = "red"; -->
+						<!-- context.fillText("12", 70, 30); -->
+					<!-- } -->
+				<!-- } -->
+				<!-- else -->
+				<!-- { -->
+				<!-- context.fillStyle = "red"; -->
+				<!-- context.fillText("118", 70, 30); -->
+				<!-- } -->
+			<!-- } -->
+			<!-- else if(0.1 < slope  && slope < 0.2) -->
+			<!-- { -->
+				<!-- context.fillStyle = "orange"; -->
+				<!-- context.fillText("98", 70, 30); -->
+			<!-- } -->
+			<!-- else if(0.87 < slope  && slope < 1.3) -->
+			<!-- { -->
+				<!-- context.fillStyle = "green"; -->
+				<!-- context.fillText("86", 70, 30); -->
+			<!-- } -->
+			
+			
+			
+			<!-- if((slopBetweenTwoPoints != -10)&&(slopMiddleToSecondTouch != -10)) -->
+			<!-- { -->
+			
+				<!-- context.beginPath();  -->
+				<!-- context.moveTo(NewX1,NewY1); -->
+				<!-- context.lineTo(NewX2,NewY2); -->
+				<!-- context.stroke(); -->
+				
+				
+				<!-- if((0.4 < slopBetweenTwoPoints  && slopBetweenTwoPoints < 0.5) && (20 < X  && X < 30)) -->
+				<!-- { -->
+					<!-- context.fillStyle = "green"; -->
+			     	<!-- context.fillText("18", 70, 30); -->
+				<!-- } -->
+				<!-- else if((-0.15 < slopBetweenTwoPoints  && slopBetweenTwoPoints < -0.09) && (-5 < X  && X < 15)) -->
+				<!-- { -->
+					<!-- context.fillStyle = "green"; -->
+			     	<!-- context.fillText("29", 70, 30); -->
+				<!-- } -->
+			
+			
+				//context.moveTo(canvas.width/2,canvas.height/2);
+				//context.lineTo(NewX2,NewY2);
+				//context.stroke();
+							
+				
+			<!-- } -->
+			
+			
+			
+			
+		});
+	
+		cutOut.addEventListener("touchstart", function(  ) {console.log("OUTTT"); isOnDiv=false;});
+	
+	</script>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<style>
+			.donut-ring {
+    position: relative;
+    width: 1160px;
+    height: 1160px;
+}
+
+.ring {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
+
+.ring.red {
+    background-color: red;
+    border-radius: 60%;
+	top: 0;
+    left: 0;
+	width: 100%;
+    height: 100%;
+	transform-origin: top right;
+}
+
+.cutout {
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.rround{
+border-radius: 50%;
+background-color: blue;
+}
+		</style>
+		
+		
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+	<div id="mainDiv" class="donut-ring">
+		<div id="red" class="ring red"></div>
+		<div id="cutoutt" class="cutout"> 
+			<canvas class="rround" style="width:100%; height:100%" id="myCanvas" > </canvas> 
+		</div>
+    </div>
+	
+	</body>
+	
+	<script>
+	
+	  var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+	   
+	  base_image = new Image();
+	  base_image.src = 'll.jpg';
+      context.drawImage(base_image, 0, 0, 120,120);
+	  //context.drawImage(base_image, 0, 0);
+	  //console.log(base_image);
+	  
+	  
+	  console.log("canvas.width: " + canvas.width);
+	  console.log("canvas.height: " + canvas.height);
+	  
+	  console.log("canvas.offsetWidth;: " + canvas.offsetWidth);
+	  console.log("canvas.offsetHeight;: " + canvas.offsetHeight);
+	  
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var radius = 200;
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'white';
+      context.fill();
+	  
+	var cir = document.getElementById("red");
+	var cutOut = document.getElementById("cutoutt");
+	
+	//console.log(cutOut);
+	var isOnDiv = false;
+	
+	cir.addEventListener("touchstart", function(  ) {
+	console.log("IN"); 
+	isOnDiv=true;
+	});
+	
+    cir.addEventListener("touchend", function(  ) {
+	console.log("OUT"); 
+	isOnDiv=false;
+	
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	context.fillStyle = 'white';
+	context.fill();
+	});
+	
+	cir.addEventListener("touchmove", function( e ) {
+			console.log("MOVE"); 
+			isOnDiv=true;
+			X = e.touches[0].clientX;
+			Y = e.touches[0].clientY;
+		
+		
+			// white background in the middle (cutout)
+			context.beginPath();
+			context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'white';
+			context.fill();
+
+			base_image = new Image();
+			base_image.src = 'l1.png';
+			context.drawImage(base_image, 0, -50,220, 220);
+			
+			console.log("X: " + X);
+			console.log("Y: " + Y);
+			
+			var oldRange = 100;
+			var newRange = 200;
+			
+			var NewX = (((X-348)*1.42)+0);
+			var NewY = (((Y-348)*1.42)+0);
+			
+			// Reset the current path
+			context.beginPath(); 
+			// Staring point (10,45)
+			context.moveTo(canvas.width/2,canvas.height/2);
+			//context.moveTo(0,0);
+			// End point (180,47)
+			//context.lineTo(X,Y);
+			context.lineTo(NewX,NewY)
+			// Make the line visible
+			context.stroke();
+			
+			context.font = "12px Arial";
+			context.fillStyle = "red";
+			context.textAlign = "center";
+			context.fillText("", 70, 30);
+			
+			
+			var slope = ((NewY - (canvas.height/2))/(NewX - (canvas.width/2)));
+			//console.log("Slope: " + slope);
+			if( -0.42 < slope  && slope < -0.31 )
+			{
+				context.fillStyle = "red";
+				context.fillText("132", 70, 30);
+			}
+			else if(-0.18 < slope  && slope < 0)
+			{
+				context.fillStyle = "orange";
+				context.fillText("118", 70, 30);
+			}
+			else if(0.1 < slope  && slope < 0.2)
+			{
+				context.fillStyle = "orange";
+				context.fillText("98", 70, 30);
+			}
+			else if(0.87 < slope  && slope < 1.3)
+			{
+				context.fillStyle = "green";
+				context.fillText("86", 70, 30);
+			}
+		});
+	
+	cutOut.addEventListener("touchstart", function(  ) {console.log("OUTTT"); isOnDiv=false;});
+	
+	</script>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<style>
+		.donut-ring {
+			position: relative;
+			width: 1160px;
+			height: 1160px;
+		}
+		
+		.ring {
+			position: absolute;
+			width: 50%;
+			height: 50%;
+		}
+		
+		.ring.red {
+			background-color: blue;
+			border-radius: 50%;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform-origin: top right;
+		}
+		
+		.cutout {
+			width: 88%;
+			height: 88%;
+			background-color: white;
+			position: absolute;
+			top: 6%;
+			left: 6%;
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		
+		.rround{
+			border-radius: 50%;
+			background-color: blue;
+		}
+	</style>
+		
+		
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+	<div id="mainDiv" class="donut-ring" >
+		<div id="red" class="ring red"></div>
+		<div id="cutoutt" class="cutout"> 
+			<canvas class="rround" style="width:100%; height:100%" id="myCanvas" > </canvas> 
+		</div>
+    </div>
+	
+	</body>
+	
+	<script>
+	
+	  var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+	   
+	  base_image = new Image();
+	  base_image.src = 'test53.png';
+      context.drawImage(base_image, 0, 0, 120,120);
+	  //context.drawImage(base_image, 0, 0);
+	  console.log("Test");
+	  console.log(base_image);
+	  
+	  
+	  console.log("canvas.width: " + canvas.width);
+	  console.log("canvas.height: " + canvas.height);
+	  
+	  console.log("canvas.offsetWidth;: " + canvas.offsetWidth);
+	  console.log("canvas.offsetHeight;: " + canvas.offsetHeight);
+	  
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var radius = 200;
+
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'white';
+      context.fill();
+	  
+	var cir = document.getElementById("red");
+	var cutOut = document.getElementById("cutoutt");
+	
+	//console.log(cutOut);
+	var isOnDiv = false;
+	
+	cir.addEventListener("touchstart", function(  ) {
+	console.log("IN"); 
+	isOnDiv=true;
+	});
+	
+    cir.addEventListener("touchend", function(  ) {
+	console.log("OUT"); 
+	isOnDiv=false;
+	
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	context.fillStyle = 'white';
+	context.fill();
+	});
+	
+	cir.addEventListener("touchmove", function( e ) {
+			
+			e.preventDefault();
+		
+			console.log("MOVE"); 
+			isOnDiv=true;
+			X = e.touches[0].clientX;
+			Y = e.touches[0].clientY;
+		
+		
+			// white background in the middle (cutout)
+			context.beginPath();
+			context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'white';
+			context.fill();
+
+			base_image = new Image();
+			base_image.src = 'test53.png';
+			context.drawImage(base_image, 2, -10,295, 150);
+			
+			//console.log("X: " + X);
+			//console.log("Y: " + Y);
+			
+			var oldRange = 100;
+			var newRange = 200;
+			
+			var NewX = (((X-348)*1.42)+0);
+			var NewY = (((Y-348)*1.42)+0);
+			
+			// Reset the current path
+			context.lineWidth = 2;
+			context.lineCap = "round";
+			context.beginPath(); 
+			// Staring point (10,45)
+			context.moveTo(canvas.width/2,canvas.height/2);
+			//context.moveTo(0,0);
+			// End point (180,47)
+			//context.lineTo(X,Y);
+			context.lineTo(NewX,NewY)
+			// Make the line visible
+			context.stroke();
+			
+			context.font = "12px Arial";
+			context.fillStyle = "red";
+			context.textAlign = "center";
+			context.fillText("", 70, 30);
+			
+			
+			var slope = ((NewY - (canvas.height/2))/(NewX - (canvas.width/2)));
+			console.log("Slope: " + slope);
+			//context.fillStyle = "red";
+			//context.fillText(slope, 150, 30);
+			
+			if( -0.47 < slope  && slope < -0.40 )
+			{
+			
+			
+				//context.fillStyle = "green";
+				//context.fillText("96", 150, 20);
+			}
+			else if(-0.68 < slope  && slope < -0.58)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("103", 150, 20);
+			}
+			else if(2.5 < slope  && slope < 6.08)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("84", 150, 20);
+			}
+			else if(0.38 < slope  && slope < 0.50)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("74", 150, 20);
+			}
+			else if(0.19 < slope  && slope < 0.24)//here
+			{
+				//context.fillStyle = "green";
+				//context.fillText("76", 150, 20);
+			}
+			else if(0.20 < slope  && slope < 0.32)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("69", 150, 20);
+			}
+			else if(0.04 < slope  && slope < 0.09)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("66", 150, 20);
+			}
+			else if(-0.05 < slope  && slope < 0.00)
+			{
+				context.fillStyle = "green";
+				context.fillText("2", 150, 20);
+			}
+			else if(1.02 < slope  && slope < 1.59)
+			{
+				context.fillStyle = "green";
+				context.fillText("50", 150, 20);
+			}
+			else if(0.71 < slope  && slope < 0.86)
+			{
+				context.fillStyle = "green";
+				context.fillText("42", 150, 20);
+			}
+			else if(-0.39 < slope  && slope < -0.32)
+			{
+				//context.fillStyle = "green";
+				//context.fillText("35", 150, 20);
+			}
+		});
+	
+	cutOut.addEventListener("touchstart", function(  ) {console.log("OUTTT"); isOnDiv=false;});
+	
+	</script>
+</html>
