@@ -34,20 +34,58 @@
 	<script type="text/javascript" src="datajs.js">  </script>
 	
 </head>
-<body style="width: 300px; height: 300px; background-color: white">
+<body style="width: 300px; height: 300px; background-color: white" id="MainBody">
 <script type="text/javascript" src="d3.min.js">  </script>
 <!-- <script type="text/javascript" src="fisheye.js" charset="utf-8"></script> -->
 
 <script>
-console.log(Arr);
+
+var MainBody = document.getElementById("MainBody");
+var mylatesttap;
+var singletapBoolean = true;
+showChart();
+
+MainBody.addEventListener("touchstart", function( e ) {
+
+	console.log("touchstart");
+	
+	var now = new Date().getTime();
+	var timesince = now - mylatesttap;
+	console.log("[T] - timesince: " + timesince);
+	if((timesince < 600) && (timesince > 0))
+	{
+		console.log("[D] - DOUBLE TAB EVENT");
+		singletapBoolean = true;
+		showChart();
+	}
+	else 
+	{
+		if(singletapBoolean == true)
+			{
+				console.log("[S] - Single TAB EVENT");
+				singletapBoolean = false;
+				showChart();
+			}
+	}
+	mylatesttap = new Date().getTime();
+	
+});
+
+function showChart()
+{
+//var svg = d3.select("svg");
+//svg.selectAll("*").remove();
+
+//d3.selectAll("svg > *").remove();
+//console.log(Arr);
 // 2. Use the margin convention practice 
 var margin = {top: 20, right: 20, bottom: 20, left: 20}
   , width = 400 - margin.left - margin.right // Use the window's width 
   , height = 300 - margin.top - margin.bottom; // Use the window's height
 
-console.log("x: " + window.innerWidth);
-console.log("width: " + width);
-console.log("height: " + height);
+//console.log("x: " + window.innerWidth);
+//console.log("width: " + width);
+//console.log("height: " + height);
 
 // The number of datapoints
 var n = 12;
@@ -70,7 +108,9 @@ var line = d3.line()
 
 // 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
 var dataset = d3.range(n).map(function(d) { return {"y": d3.randomUniform(1)() } })
-console.log(dataset);
+//console.log(dataset);
+
+d3.select("body").select("svg").remove();
 
 // 1. Add the SVG to the page and employ #2
 var svg = d3.select("body").append("svg")
@@ -78,6 +118,20 @@ var svg = d3.select("body").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+if(singletapBoolean == true)
+{
+ svg.append("text").text("Tap to Start")
+	.attr("x", "10%")
+	.attr("y", "30%")
+	.attr("fill", "red")
+	.attr("font-size", 45);
+	
+ console.log("RETURN TEXT");
+ return;
+}
+
+	  
 
 // 3. Call the x axis in a group tag
 //svg.append("g")
@@ -161,22 +215,22 @@ svg.selectAll(".dot")
 			for(var i = 0; i < dataset.length; i++)
 			{
 				//console.log(i);
-				console.log("xPos: " + xPos );
-				console.log("(i*(width/n-1)): " + (i*(width/(n-1))) );
+				//console.log("xPos: " + xPos );
+				//console.log("(i*(width/n-1)): " + (i*(width/(n-1))) );
 				var ecl = Math.sqrt(Math.pow((xPos - (i*(width/(n-1)))),2))
-				console.log("ecl: " + ecl);
+				//console.log("ecl: " + ecl);
 				if(ecl < min)
 				{
 					min = ecl;
 					x_index = i;
 				}
 			}
-			console.log(min + " index= " + x_index);
+			//console.log(min + " index= " + x_index);
 			
 			var newY = (height - (dataset[x_index].y * height));
 			var newY = (height - (dataset[x_index].y * height));
-			console.log("datay : " + dataset[x_index].y);
-			console.log(" newY = " + newY);
+			//console.log("datay : " + dataset[x_index].y);
+			//console.log(" newY = " + newY);
 		
 			focus.attr("transform", "translate(" + (x_index*(width/(n-1))) + "," + newY + ")");
 			focus.select("text").text(dataset[x_index].y.toFixed(2));
@@ -206,22 +260,22 @@ svg.selectAll(".dot")
 			for(var i = 0; i < dataset.length; i++)
 			{
 				//console.log(i);
-				console.log("xPos: " + xPos );
-				console.log("(i*(width/n-1)): " + (i*(width/(n-1))) );
+				//console.log("xPos: " + xPos );
+				//console.log("(i*(width/n-1)): " + (i*(width/(n-1))) );
 				var ecl = Math.sqrt(Math.pow((xPos - (i*(width/(n-1)))),2))
-				console.log("ecl: " + ecl);
+				//console.log("ecl: " + ecl);
 				if(ecl < min)
 				{
 					min = ecl;
 					x_index = i;
 				}
 			}
-			console.log(min + " index= " + x_index);
+			//console.log(min + " index= " + x_index);
 			
 			var newY = (height - (dataset[x_index].y * height));
 			var newY = (height - (dataset[x_index].y * height));
-			console.log("datay : " + dataset[x_index].y);
-			console.log(" newY = " + newY);
+			//console.log("datay : " + dataset[x_index].y);
+			//console.log(" newY = " + newY);
 		
 			focus.attr("transform", "translate(" + (x_index*(width/(n-1))) + "," + newY + ")");
 			focus.select("text").text(dataset[x_index].y.toFixed(2) + "  move");
@@ -399,7 +453,7 @@ svg.selectAll(".dot")
 	<!-- .attr("dy", "1.2em") -->
 	<!-- .style("font-size", "1.25em") -->
 	<!-- .attr("font-weight", "bold"); -->
-
+}
 </script>
 
 </body>
