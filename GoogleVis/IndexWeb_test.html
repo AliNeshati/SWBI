@@ -8,7 +8,7 @@
 /* Style the lines by removing the fill and applying a stroke */
 .line {
     fill: none;
-    stroke: #ffab00;
+    stroke: rgb(68, 114, 196);
     stroke-width: 3;
 }
   
@@ -19,7 +19,7 @@
 
 /* Style the dots by assigning a fill and stroke */
 .dot {
-    fill: #ffab00;
+    fill: rgb(68, 114, 196);
     stroke: #fff;
 }
   
@@ -179,7 +179,7 @@ svg.selectAll(".dot")
 			console.log(" newY = " + newY);
 		
 			focus.attr("transform", "translate(" + (x_index*(width/(n-1))) + "," + newY + ")");
-			focus.select("text").text(dataset[x_index].y.toFixed(2) + "  start");
+			focus.select("text").text(dataset[x_index].y.toFixed(2));
 			})
 		.on("touchend", function(){focus.style("display", "none");})
 		.on("touchmove ", function(){

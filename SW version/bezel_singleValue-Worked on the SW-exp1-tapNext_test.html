@@ -186,8 +186,8 @@
 			
 			e.preventDefault();
 			//console.log("MOVE"); 
-			isOnDiv=true;
-			X = e.touches[0].client  
+			isOnDiv = true;
+			X = e.touches[0].clientX;  
 			Y = e.touches[0].clientY;
 		
 			// white background in the middle (cutout)
@@ -197,10 +197,16 @@
 			context.fill();
 
 			//base_image.src = 'test53.png';
+			base_image = new Image();
 			base_image.src = tempPicName;
 			context.drawImage(base_image, 2, -10,297, 155);
-			console.log("[Move] - Pic Str: " + tempPicName);
-			console.log("[Move] - Pic Source: " + base_image.src);
+			//console.log("[Move] - Pic Str: " + tempPicName);
+			//console.log("[Move] - Pic Source: " + base_image.src);
+			
+			//context.beginPath();
+		    //context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		    //context.fillStyle = 'white';
+		    //context.fill();
 			
 			//console.log("X: " + X);
 			//console.log("Y: " + Y);
@@ -210,17 +216,25 @@
 			
 			var NewX = (((X-348)*1.42)+0);
 			var NewY = (((Y-348)*1.42)+0);
+			console.log("NewX: " + NewX);
+			//console.log("NewY: " + NewY);
+			var PosNegSlop = 0;
+			if(NewX > 350)
+			{
+				PosNegSlop = 1;
+			}
+			else
+			{
+				PosNegSlop = -1;
+			}
 			
 			// Reset the current path
 			context.lineWidth = 2;
 			context.lineCap = "round";
 			context.beginPath(); 
-			// Staring point (10,45)
 			context.moveTo(canvas.width/2,canvas.height/2);
-			//context.moveTo(0,0);
-			// End point (180,47)
-			//context.lineTo(X,Y);
-			context.lineTo(NewX,NewY)
+			context.lineTo(NewX,NewY);
+			
 			// Make the line visible
 			context.stroke();
 			
@@ -229,7 +243,10 @@
 			context.textAlign = "center";
 			context.fillText("", 70, 30);
 			
-			var slope = ((NewY - (canvas.height/2))/(NewX - (canvas.width/2)));
+			var slope = ((NewY - (canvas.height/2))/(NewY - (canvas.width/2)));
+			
+			//console.log("1: " + (NewY - (canvas.height/2)));
+			//console.log("2: " + (NewY - (canvas.width/2)));
 			//console.log("Slope: " + slope);
 			//context.fillStyle = "red";
 			//context.fillText(slope, 150, 30);
