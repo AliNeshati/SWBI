@@ -43,6 +43,8 @@
 var MainBody = document.getElementById("MainBody");
 var mylatesttap;
 var singletapBoolean = true;
+var responseTime;
+var timeFlag = true;
 showChart();
 
 MainBody.addEventListener("touchstart", function( e ) {
@@ -56,6 +58,11 @@ MainBody.addEventListener("touchstart", function( e ) {
 	{
 		console.log("[D] - DOUBLE TAB EVENT");
 		singletapBoolean = true;
+		
+		responseTime =  now - responseTime;
+		timeFlag = true;
+		console.log("RT: " + responseTime);
+			
 		showChart();
 	}
 	else 
@@ -65,6 +72,11 @@ MainBody.addEventListener("touchstart", function( e ) {
 				console.log("[S] - Single TAB EVENT");
 				singletapBoolean = false;
 				showChart();
+				if(timeFlag == true)
+				{
+					responseTime = now;
+					timeFlag = false;
+				}
 			}
 	}
 	mylatesttap = new Date().getTime();
