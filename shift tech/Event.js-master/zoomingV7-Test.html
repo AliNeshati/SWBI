@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<link rel="stylesheet" type="text/css" href="magnifier.css">
+
+
+<div width="300px" height="310px" id="MainDiv">
+    <a class="magnifier-thumb-wrapper">
+        <img id="thumb" width="300px" height="300px" style="margin-left:-20px; margin-top:-20px" src="Graph2.PNG">
+    </a>
+</div> 
+
+<script type="text/javascript" src="Event.js"></script>
+<script type="text/javascript" src="MagnifierV6-TapDoubleTapTest.js"></script>
+<script type="text/javascript">
+
+var MainDiv = document.getElementById("MainDiv");
+var MyImage = document.getElementById("thumb");
+MyImage.src = "TapImage.png";
+
+var responseTime = 0;
+var mylatesttap;
+var singletapBoolean = true;
+var timeFlag = true;
+var ImageStr = "Graph2.png";
+
+
+MainDiv.addEventListener("touchstart", function( e ) {
+
+	console.log("touchstart");
+	
+	var now = new Date().getTime();
+	var timesince = now - mylatesttap;
+	console.log("[T] - timesince: " + timesince);
+	if((timesince < 600) && (timesince > 0))
+	{
+		console.log("[D] - DOUBLE TAB EVENT");
+		singletapBoolean = true;
+		MyImage.src = "TapImage.png";
+		
+		responseTime =  now - responseTime;
+		timeFlag = true;
+		console.log("RT: " + responseTime);
+	}
+	else 
+	{
+		if(singletapBoolean == true)
+			{
+				console.log("[S] - Single TAB EVENT");
+				singletapBoolean = false;
+				ImageStr = "Graph2.png";
+				MyImage.src = ImageStr;
+				
+				if(timeFlag == true)
+				{
+					responseTime = now;
+					timeFlag = false;
+				}
+			}
+	}
+	mylatesttap = new Date().getTime();
+	
+});
+
+
+
+var evt = new Event(),
+    m = new Magnifier(evt);
+
+	m.attach({
+    thumb: '#thumb',
+    large: ImageStr,
+    mode: 'inside',
+    zoom: 3 ,
+});
+</script>
+
+
+
+
+</body>
+</html>
