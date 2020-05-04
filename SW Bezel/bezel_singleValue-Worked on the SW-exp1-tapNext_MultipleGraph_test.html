@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<style>
+		.donut-ring {
+			position: relative;
+			width: 1160px;
+			height: 1160px;
+		}
+		
+		.ring {
+			position: absolute;
+			width: 50%;
+			height: 50%;
+		}
+		
+		.ring.red {
+			background-color: blue;
+			border-radius: 50%;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			transform-origin: top right;
+		}
+		
+		.cutout {
+			width: 88%;
+			height: 88%;
+			background-color: white;
+			position: absolute;
+			top: 6%;
+			left: 6%;
+			border-radius: 50%;
+			pointer-events: none;
+		}
+		
+		.rround{
+			border-radius: 50%;
+			background-color: blue;
+		}
+	</style>
+		
+		
+		
+		
+		
+	</head>
+	
+	
+	<body>
+	
+	<div id="mainDiv" class="donut-ring" >
+		<div id="red" class="ring red"></div>
+		<div id="cutoutt" class="cutout"> 
+			<canvas class="rround" style="width:100%; height:100%" id="myCanvas" > </canvas> 
+		</div>
+    </div>
+	
+	</body>
+	
+	<script>
+	
+	var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+	var tapNumber = 0;
+	 
+	base_image = new Image();
+	console.log("[START] - Pic Source: " + base_image.src);
+	var tempPicName = "test1.png";
+	var SlopValuesGraph1Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph2Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph3Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph4Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph5Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph6Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph7Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph8Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph9Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph10Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph11Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph12Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph13Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph14Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph15Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph16Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph17Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph18Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph19Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph20Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph21Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph22Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph23Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph24Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph25Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph26Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph27Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph28Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph29Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph30Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph31Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph32Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph33Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph34Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph35Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph36Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph37Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph38Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph39Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph40Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph41Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph42Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph43Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph44Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph45Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph46Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph47Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph48Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph49Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph50Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77]
+	var SlopValuesGraph51Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph52Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph53Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph54Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph55Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77]
+	var SlopValuesGraph56Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph57Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph58Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph59Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77];
+	var SlopValuesGraph60Array = [0.64,0.7,-1,81,0.03,0.3,-1,56,1.21,1.26,-1,10,1.26,1.35,-1,29,0.74,0.78,-1,73,1.10, 1.14,-1,34,0.873,0.881,1,98,1.23,1.36,1,36,-1.4,0.2,1,53,1.18,1.2,1,11,0.7,0.75,1,77]
+		
+	var SlopValuesArray;
+	//base_image.src = 'test53.png';
+    //context.drawImage(base_image, 0, 0, 120,120);
+	//context.drawImage(base_image, 0, 0);
+	//console.log("Test");
+	//console.log(base_image);
+	
+	
+	//console.log("canvas.width: " + canvas.width);
+	//console.log("canvas.height: " + canvas.height);
+	
+	//console.log("canvas.offsetWidth;: " + canvas.offsetWidth);
+	//console.log("canvas.offsetHeight;: " + canvas.offsetHeight);
+	
+    var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;
+    var radius = 200;
+
+    context.beginPath();
+    context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'white';
+    context.fill();
+	
+	context.font = "30px bold Arial";
+	context.fillStyle = "red";
+	context.textAlign = "center";
+
+	context.fillStyle = "red";
+	context.fillText("Tappp to Start", 152, 80);
+	  
+
+	var cir = document.getElementById("red");
+	var cutOut = document.getElementById("cutoutt");
+	
+	//console.log(cutOut);
+	var ImageIndex = 0;
+	var isOnDiv = false;
+	var pictureName = "test";
+	var mylatesttap;
+	var responseTime;
+	var timeFlag = true;
+	var singletapBoolean = true;
+	
+	//touch start event 
+	cir.addEventListener("touchstart", function( e ) {	
+	console.log("TOUCH START EVENT");
+	//e.preventDefault();
+	
+	//double tap to end the trial
+	var now = new Date().getTime();
+	var timesince = now - mylatesttap;
+	
+	if((timesince < 600) && (timesince > 0)){
+	
+			console.log("DOUBLE TAB EVENT");
+			singletapBoolean = true;
+			context.beginPath();
+			context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'white';
+			context.fill();
+			
+			context.font = "30px bold Arial";
+			context.fillStyle = "red";
+			context.textAlign = "center";
+		
+			context.fillStyle = "red";
+			context.fillText("Tap to Start", 152, 80);
+			
+			responseTime =  now - responseTime;
+			timeFlag = true;
+			console.log("RT: " + responseTime);
+
+    }//or simple tap to show the next graph
+	else{
+			if(singletapBoolean == true)
+			{
+				console.log("SINGLE TAP EVENT");
+				singletapBoolean = false;
+				ImageIndex++;
+				tempPicName = ("test" + ImageIndex + ".png");
+				base_image.src = tempPicName;
+				tempPicName = ("test" + ImageIndex + ".png");
+				PichGraphValues(ImageIndex);
+				console.log("[Tap] - Pic Str: " + tempPicName);
+				console.log("[Tap] - Pic Source: " + base_image.src);
+				base_image.onload = () => {context.drawImage(base_image, 2, -10,297, 155);};
+				
+				if(timeFlag == true)
+				{
+					responseTime = now;
+					timeFlag = false;
+				}
+			}
+		}
+		
+		mylatesttap = new Date().getTime();
+		console.log("IN"); 
+		tapNumber++;
+		isOnDiv = true;
+		//console.log(tapNumber);
+	});
+	
+	
+	function PichGraphValues(GraphIndex)
+	{
+		if(GraphIndex == 1)
+		{
+			console.log("MY FUNCTION");
+			SlopValuesArray = SlopValuesGraph1Array;
+			console.log("Array = " + SlopValuesArray);
+		}
+		return;
+	}
+	
+	
+	//touch end event handler  
+		cir.addEventListener("touchend", function(  ) {
+		console.log("TOUCH END EVENT"); 
+		isOnDiv=false;
+		
+		//context.beginPath();
+		//context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		//context.fillStyle = 'white';
+		//context.fill();
+	});
+	
+	cir.addEventListener("touchmove", function( e ) {
+			
+			e.preventDefault();
+			//console.log("MOVE"); 
+			isOnDiv = true;
+			X = e.touches[0].clientX;  
+			Y = e.touches[0].clientY;
+		
+			// white background in the middle (cutout)
+			context.beginPath();
+			context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'white';
+			context.fill();
+
+			//base_image.src = 'test53.png';
+			base_image = new Image();
+			base_image.src = tempPicName;
+			context.drawImage(base_image, 2, -10,297, 155);
+			//console.log("[Move] - Pic Str: " + tempPicName);
+			//console.log("[Move] - Pic Source: " + base_image.src);
+			
+			//context.beginPath();
+		    //context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		    //context.fillStyle = 'white';
+		    //context.fill();
+			
+			//console.log("X: " + X);
+			//console.log("Y: " + Y);
+			
+			var oldRange = 100;
+			var newRange = 200;
+			
+			var NewX = (((X-348)*1.42)+0);
+			var NewY = (((Y-348)*1.42)+0);
+			console.log("NewX: " + NewX);
+			//console.log("NewY: " + NewY);
+			var PosNegSlop = 0;
+			if(NewX > 350)
+			{
+				PosNegSlop = 1;
+			}
+			else
+			{
+				PosNegSlop = -1;
+			}
+			
+			// Reset the current path
+			context.lineWidth = 2;
+			context.lineCap = "round";
+			context.beginPath(); 
+			context.moveTo(canvas.width/2,canvas.height/2); 
+			context.lineTo(NewX,NewY);
+			
+			// Make the line visible
+			context.stroke();
+			
+			context.font = "12px Arial";
+			context.fillStyle = "red";
+			context.textAlign = "center";
+			context.fillText("", 70, 30);
+			
+			var slope = ((NewY - (canvas.height/2))/(NewY - (canvas.width/2)));
+			
+			//console.log("1: " + (NewY - (canvas.height/2)));
+			//console.log("2: " + (NewY - (canvas.width/2)));
+			//console.log("Slope: " + slope);
+			//context.fillStyle = "red";
+			//context.fillText(slope, 150, 30);
+			
+			if( SlopValuesArray[0] < slope  && slope < SlopValuesArray[1] && PosNegSlop == SlopValuesArray[2] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[3], 150, 20);
+			}
+			else if(SlopValuesArray[4] < slope  && slope < SlopValuesArray[5] && PosNegSlop == SlopValuesArray[6] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[7], 150, 20);
+			}
+			else if(SlopValuesArray[8] < slope  && slope < SlopValuesArray[9] && PosNegSlop == SlopValuesArray[10] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[11], 150, 20);
+			}
+			else if(SlopValuesArray[12] < slope  && slope < SlopValuesArray[13] && PosNegSlop == SlopValuesArray[14] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[15], 150, 20);
+			}
+			else if(SlopValuesArray[16] < slope  && slope < SlopValuesArray[17] && PosNegSlop == SlopValuesArray[18] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[19], 150, 20);
+			}
+			else if(SlopValuesArray[20] < slope  && slope < SlopValuesArray[21] && PosNegSlop == SlopValuesArray[22] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[23], 150, 20);
+			}
+			else if(SlopValuesArray[24] < slope  && slope < SlopValuesArray[25] && PosNegSlop == SlopValuesArray[26] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[27], 150, 20);
+			}
+			else if(SlopValuesArray[28] < slope  && slope < SlopValuesArray[29] && PosNegSlop == SlopValuesArray[30] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[31], 150, 20);
+			}
+			else if(SlopValuesArray[32] < slope  && slope < SlopValuesArray[33] && PosNegSlop == SlopValuesArray[34] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[35], 150, 20);
+			}
+			else if(SlopValuesArray[36] < slope  && slope < SlopValuesArray[37] && PosNegSlop == SlopValuesArray[38] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[39], 150, 20);
+			}
+			else if(SlopValuesArray[40] < slope  && slope < SlopValuesArray[41] && PosNegSlop == SlopValuesArray[42] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[43], 150, 20);
+			}
+			else if(SlopValuesArray[44] < slope  && slope < SlopValuesArray[45] && PosNegSlop == SlopValuesArray[46] )
+			{
+				context.fillStyle = "green";
+				context.fillText(SlopValuesArray[47], 150, 20);
+			}
+		});
+	
+	cutOut.addEventListener("touchend", function(  ) {
+		console.log("OUTTT"); 
+		isOnDiv=false;});
+	
+	</script>
+</html>

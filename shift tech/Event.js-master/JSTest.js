@@ -739,51 +739,51 @@ console.log("MagCounter: " + MagCounter );
 		
 		if(((30 < CurX && CurX < 45) && (60 < CurY && CurY < 80)))
 		{
-			ValuesText.innerHTML = 75;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((60 < CurX && CurX < 70) && (60 < CurY && CurY < 75)))
 		{
-			ValuesText.innerHTML = 80;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((84 < CurX && CurX < 98) && (90 < CurY && CurY < 107)))
 		{
-			ValuesText.innerHTML = 65;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		else if(((111 < CurX && CurX < 128) && (102 < CurY && CurY < 118)))
 		{
-			ValuesText.innerHTML = 60;
+			ValuesText.innerHTML = 22222;
 		}
 		
 		//ValuesText.innerHTML = IntrctionArea;
